@@ -70,30 +70,6 @@ div#base, .push { height: 37px; }
   margin-left: 5px;
 }
 
-.pagination {
-  display: inline-block;
-}
-
-.pagination button {
-  background-color: #4CAF50;
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 5px;
-}
-
-.pagination button.active {
-  background-color: #007bff;
-}
-
-.pagination button.disabled {
-  background-color: #ddd;
-  color: #aaa;
-  cursor: default;
+#search-table {
+  display: none;
 }

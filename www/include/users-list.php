@@ -1,7 +1,7 @@
 <?php
 
 $con = LDAPconnect()[0];
-$result = ldap_search($con,LDAP_SEARCH_DN,"(cn=*)",array('cn',LDAP_USER_EMAIL_ATTR,'uid'));
+$result = ldap_search($con,LDAP_SEARCH_DN,"(uid=*)",array('cn',LDAP_USER_EMAIL_ATTR,'uid'));
 $entries = ldap_get_entries($con,$result);
 //sort alphabetically
 usort($entries,"sortByName");

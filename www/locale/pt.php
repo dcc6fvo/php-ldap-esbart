@@ -123,4 +123,10 @@ define("uid","uid");
 define("devices","dispositivos");
 define("macaddress","MAC Address");
 
+define("home","Inicio");
+
+define("search","Buscar...");
+define("surname","sobrename");
+
+
 ?>
