@@ -13,6 +13,7 @@ function handleSearchInput() {
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             if ( xhr.responseText.length > 4 ) {
+
                 data = JSON.parse(xhr.responseText);
 
                 if ( data.count > 0 )
