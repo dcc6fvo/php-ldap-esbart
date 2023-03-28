@@ -41,7 +41,7 @@ if ($_POST) {
         ldap_close($con);
         $success = false;
         for ($i = 0; $i < $entries[0][LDAP_GROUP_ATTR]['count']; $i++) {
-          if ($entries[0][LDAP_GROUP_ATTR][$i] == $udn) {
+          if ($entries[0][LDAP_GROUP_ATTR][$i] == $username) {
             $_SESSION['id'] = $username;
             $success = true;
             writeLog('login-access.log',$udn.' '.logged_in);
