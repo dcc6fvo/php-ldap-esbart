@@ -14,3 +14,4 @@
       <div id="head">
         <span><?=greeting?>, <?=$_SESSION['id']?>! - <a href="?module=home"><?=home?></a> - <a href="?module=devices"><?=devices?></a> - <a href="?module=users"><?=users?></a> - <a href="?module=groups"><?=groups?></a> - <a href="?module=configuration"><?=configuration?></a> - <a href="login.php?action=logout"><?=logout?></a></span>
       </div>
+  <script src="scripts/base.js"></script>

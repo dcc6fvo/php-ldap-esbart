@@ -11,6 +11,7 @@
         $result = ldap_search($con[0],LDAP_SEARCH_DN,"(uid=*$uid*)",array('givenname','sn','uid',LDAP_USER_EMAIL_ATTR));
         $entries = ldap_get_entries($con[0],$result);  
         echo json_encode($entries);
+        
     }else{
         $results = null;
         echo json_encode($results);
