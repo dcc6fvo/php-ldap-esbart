@@ -343,7 +343,15 @@ function addUserToGroups($uid,$groups) {
   //expects an array of group names
   $con = LDAPconnect();
   $udn=getUserDN($uid);
-  $entry[LDAP_GROUP_ATTR] = $udn;
+
+  # The attributes member and uniqueMember contain the DN
+  if (LDAP_GROUP_ATTR == 'memberuid') {
+    $entry[LDAP_GROUP_ATTR] = $uid;
+  }
+  else {
+    $entry[LDAP_GROUP_ATTR] = $udn;
+  }
+  
   $fail = false;
   foreach ($groups as $group) {
     //the select html tag may send an empty string
@@ -381,7 +389,15 @@ function removeUserFromGroups($uid,$groups) {
   //expects an array of group names
   $con = LDAPconnect();
   $udn=getUserDN($uid);
-  $entry[LDAP_GROUP_ATTR] = $udn;
+
+  # The attributes member and uniqueMember contain the DN
+  if (LDAP_GROUP_ATTR == 'memberuid') {
+    $entry[LDAP_GROUP_ATTR] = $uid;
+  }
+  else {
+    $entry[LDAP_GROUP_ATTR] = $udn;
+  }
+  
   $fail = false;
   foreach ($groups as $group) {
     $result = ldap_mod_del($con[0],"cn=$group,".LDAP_GROUPS_DN,$entry);
@@ -456,12 +472,21 @@ function getUserMembership($uid) {
   $udn=getUserDN($uid);
   $result = ldap_search($con[0],LDAP_GROUPS_DN,"(cn=*)",array('cn',LDAP_GROUP_ATTR));
   $entries = ldap_get_entries($con[0],$result);
-  ldap_close($con[0]);
+  ldap_close($con[0]); 
+
+  # The attributes member and uniqueMember contain the DN
+  if (LDAP_GROUP_ATTR == 'memberuid') {
+    $ident = $uid;
+  }
+  else {
+    $ident = $udn;
+  }
+
   $groups = array();
   for ($i = 0; $i < $entries['count']; $i++) {
     if (isset($entries[$i][LDAP_GROUP_ATTR])) {
       for ($j = 0; $j < $entries[$i][LDAP_GROUP_ATTR]['count']; $j++) {
-        if ($entries[$i][LDAP_GROUP_ATTR][$j] == $udn) {
+        if ($entries[$i][LDAP_GROUP_ATTR][$j] == $ident) {
           $groups[] = $entries[$i]['cn'][0];
           break;
         }
