@@ -45,7 +45,7 @@ if ($_GET['module'] == 'home') {
 }
 else if ($_GET['module'] == 'users') {
   echo '      <h2>'.users."</h2>\n";
-  echo '      <div id="sec-menu"><a href="?module=users&action=add&mode=manual">'.add.'</a> - <a href="?module=users&action=list">'.list_action."</a></div>\n";
+  echo '      <div id="sec-menu"><a href="?module=users&action=add&mode=manual">'.add.'</a> - <a href="?module=users&action=list">'.list_action.'</a> - <a href="?module=users&action=sync">'.sync."</a></div>\n";
 }
 else if ($_GET['module'] == 'groups') {
   echo '      <h2>'.groups."</h2>\n";

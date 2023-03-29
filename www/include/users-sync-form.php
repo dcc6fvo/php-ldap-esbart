@@ -15,21 +15,24 @@ if ($pd = getPersonalDataAttrs($_GET['object'], array('sn','uid','mail','userpas
       $entry['userpassword'] = $sync[0]['userpassword'][0];
       $entry['sn'] = $sync[0]['sn'][0];
       $entry['brpersoncpf'] = $sync[0]['brpersoncpf'][0];
+  
+      $res_entry = ldap_mod_replace($con[0],$pd[0]['dn'],$entry);
+      if ($res_entry) {
+        $err[] = user_sync_success;
+      }
+      else{
+        $err_num = ldap_errno($con[0]);
+        $err[] = 'Error: LDAP '.$err_num;
+        writeLog('error.log','Error: LDAP '.$err_num);
+      }
   }else{
-    writeLog('info.log',$mail." not found in sync ldap.");
-  }
+    writeLog('error.log',$mail." ".user_sync_failure);
+    $err[] = user_sync_failure;
+  }  
 
-  $res_entry = ldap_mod_replace($con[0],$pd[0]['dn'],$entry);
-  if ($res_entry) {
-    $err[] = user_sync_success;
-    printMessages($err);
-  }
-  else{
-    //$err_des = ldap_error($con[0]);
-    $err_num = ldap_errno($con[0]);
-    $err[] = 'Error: LDAP '.$err_num;
-    writeLog('error.log','Error: LDAP '.$err_num);
-  }
+  printMessages($err);
+  ldap_close($con[0]);
+  ldap_close($conSync[0]);
 }
 
 ?>

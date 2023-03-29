@@ -5,7 +5,6 @@ echo "<table id='search-table' cellpadding='20' cellspacing='10'>";
 echo "<thead>";
 echo "  <tr>";
 echo "      <th>".name."</th>";
-echo "      <th>".surname."</th>";
 echo "      <th>".login."</th>";
 echo "      <th>".email."</th>\n";
 //echo "      <th>".member_of."</th>\n";

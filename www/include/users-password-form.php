@@ -6,7 +6,7 @@ $uid = $_GET['object'];
 if (canChangeUserPassword($uid)){
 
   if ($pd = getPersonalData($uid)) {
-      if (true) {
+      
 ?>
       <h2><?=set_reset_password_header?></h2>
       <p><?=set_password_requirements?></p>
@@ -24,18 +24,7 @@ if (canChangeUserPassword($uid)){
         <input name="submit" type="submit" value="<?=create?>" />
 <?php
       printMessages($err);
-      echo "      </form>\n";
-    }
-    else if (isset($_GET['reinvite'])) {
-      if (sendOneTimeSetPasswordEmail($_GET['object'],false)) {
-        echo "<p>".user_add_welcome_email_sent." ".$_GET['object']."</p>";
-      }
-    }
-    else {
-      if (sendOneTimeSetPasswordEmail($_GET['object'],true)) {
-        echo "<p>".one_time_password_email_sent." ".$_GET['object']."</p>";
-      }
-    }
+      echo "      </form>\n";   
   }
   else {
     echo "<p>".user_does_not_exist."</p>";

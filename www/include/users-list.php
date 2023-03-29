@@ -28,22 +28,13 @@ for ($i = 1; $i < count($entries); $i++) {
   $reinvite = '';
 
   if(isset($mail) && !empty($mail)){
-    if (!userExistSyncDB($mail)) {
-      $password = '<a href="?module=users&action=password&object='.$uid.'">'.password.'</a>';
-    }else{
-      $sync = '&nbsp;&nbsp;<a href="?module=users&action=sync&object='.$uid.'">'.sync.'</a>';
-    }
+    $password = '<a href="?module=users&action=password&object='.$uid.'">'.password.'</a>';
+    $sync = '&nbsp;&nbsp;<a href="?module=users&action=sync&object='.$uid.'">'.sync.'</a>';
   }
   else{
     $password = '<a href="?module=users&action=password&object='.$uid.'">'.password.'</a>';
   }
   
-  /*
-  if (accountIsEnabled($uid)) {
-    $disable = '&nbsp;&nbsp;<a href="?module=users&action=disable&object='.$uid.'">'.disable.'</a>';
-    $reinvite = '';
-  }*/
- 
   $edit = '&nbsp;&nbsp;<a href="?module=users&action=edit&object='.$uid.'">'.edit.'</a>';
   #$remove = '&nbsp;&nbsp;<a href="?module=users&action=remove&object='.$uid.'" onclick="return confirm(\''.remove_user_confirmation.'\')">'.remove.'</a>'; 
     

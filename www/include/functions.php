@@ -96,6 +96,7 @@ function userExistSyncDB($mail) {
   $con = LDAPSyncConnect();
   $res = ldap_search($con[0], LDAP_SYNC_SEARCH_DN, "(mail=$mail)");
   $first = ldap_first_entry($con[0], $res);
+  ldap_close($con[0]);
   if (!$first)
     return false;
   else{
@@ -123,6 +124,35 @@ function getSyncPersonalData($mail) {
 
   if ($result) {
     $entries = ldap_get_entries($con[0],$result);
+    if ($entries){
+      return $entries;
+    }
+    else{
+      ldap_close($con[0]);
+      return null;
+    }
+  }
+  else {
+    ldap_close($con[0]);
+    return false;
+  }
+}
+
+function getEntryData($uid) {
+  /*
+   * returns an array with all attributes of an entry 
+   * returns false on failure
+   */
+  $con = LDAPconnect();
+  $udn = getEntryDN($uid);
+  
+  if($udn == null)
+    return false;
+  
+  $result = @ldap_read($con[0],$udn,"(cn=*)"); 
+  
+  if ($result) {
+    $entries = ldap_get_entries($con[0],$result);
 
     if ($entries){
       return $entries;
@@ -143,9 +173,7 @@ function getPersonalData($uid) {
    * returns an array with the attributes
    * defined in LDAP_USER_ATTRS var from config.php 
    * 
-   * returns false on failure, or two arrays: the first
-   * containing the attributes and the second array
-   * containing its values
+   * returns false on failure
    */
   $con = LDAPconnect();
   $udn=getUserDN($uid);
@@ -272,9 +300,41 @@ function accountHasEmail($uid) {
   }
 }
 
+function getUserEmail($user){
+  $con = LDAPconnect();
+  $res = ldap_search($con[0], LDAP_SEARCH_DN, "(uid=$user)");
+  $first = ldap_first_entry($con[0], $res);
+  if (!$first)
+    return null;
+  $data = ldap_get_dn($con[0], $first);
+  if ($data){
+    return $data[0]['mail'][0];
+  }  
+  else{
+    writeLog('login-error.log',user_dn_not_found);
+    return null;
+  }
+}
+
 function getUserDN($user){
   $con = LDAPconnect();
   $res = ldap_search($con[0], LDAP_SEARCH_DN, "(uid=$user)");
+  $first = ldap_first_entry($con[0], $res);
+  if (!$first)
+    return null;
+  $data = ldap_get_dn($con[0], $first);
+  if ($data){
+    return $data;
+  }  
+  else{
+    writeLog('login-error.log',user_dn_not_found);
+    return null;
+  }
+}
+
+function getEntryDN($entry){
+  $con = LDAPconnect();
+  $res = ldap_search($con[0], LDAP_TREE, "(uid=$entry)");
   $first = ldap_first_entry($con[0], $res);
   if (!$first)
     return null;
@@ -329,12 +389,14 @@ function disableAccount($uid) {
 function canChangeUserPassword($uid){
 
   $udn=getUserDN($uid);
+  $email=getUserEmail($uid);
 
-  if ( strpos($udn, LDAP_NOPASSWD_CHANGE_OU) !== false) {
+  if ( strpos($udn, LDAP_NOPASSWD_CHANGE_OU) !== false || userExistSyncDB($email)) {
     $err[] = 'Error: '.$uid.' '.unable_change_pass_sync;
-    writeLog('login-error.log','Error: '.$uid.' '.unable_change_pass_sync);
+    writeLog('error.log','Error: '.$uid.' '.unable_change_pass_sync);
     return false;
-  }else{
+  } 
+  else{
     return true;
   }
 }

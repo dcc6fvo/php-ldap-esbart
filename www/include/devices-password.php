@@ -22,8 +22,8 @@ $uid = $_GET['object'];
         
         //set the password
         $entry['userpassword'] = "{SHA}".base64_encode(pack("H*",sha1($password)));
-        $udn=getUserDN($uid);
-        $res = ldap_mod_replace($con,$udn,$entry);
+        $edn = getEntryDN($uid);
+        $res = ldap_mod_replace($con,$edn,$entry);
         
         if (!$res) {
           $err_des = ldap_error($con);

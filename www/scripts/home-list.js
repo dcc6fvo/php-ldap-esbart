@@ -25,11 +25,6 @@ function handleSearchInput() {
                 let html = '';
                 for (let i = 0; i < data.count; i++) {
                     html += `<tr>`;
-                    if ( isset(() => data[i].givenname[0]) )
-                        html += `<td>${data[i].givenname[0]}</td>`;
-                    else
-                        html += `<td></td>`;
-
                     if ( isset(() => data[i].sn[0] ) )  
                         html += `<td>${data[i].sn[0]}</td>`;
                     else
@@ -42,7 +37,10 @@ function handleSearchInput() {
                     else
                         html += `<td></td>`;
                     
-                    html += `<td><a href="?module=users&action=edit&object=${data[i].uid[0]}">edit</a></td>`;
+                    html += `<td>
+                    <a href="?module=users&action=edit&object=${data[i].uid[0]}">edit</a> - 
+                    <a href="?module=users&action=sync&object=${data[i].uid[0]}">sync</a>
+                    </td>`;
                     html += `</tr>`;
                 }
                 tbody.innerHTML = html;

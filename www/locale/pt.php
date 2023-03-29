@@ -114,6 +114,7 @@ define("only_numbers_allowed","Apenas números permitidos");
 define("configuration","ajustes");
 define("sync","sincronizar");
 define("user_sync_success","a conta foi sincronizada com sucesso");
+define("user_sync_failure","Não foi possível sincronizar a conta");
 define("dn","dn");
 
 define("page_under_development","Página em construção");
@@ -127,6 +128,8 @@ define("home","Inicio");
 
 define("search","Buscar...");
 define("surname","sobrename");
+
+define("device_add_name_login_required","nome e login são obrigatórios");
 
 
 ?>

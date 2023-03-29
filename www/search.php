@@ -8,7 +8,7 @@
     $con = LDAPconnect();
 
     if( strlen($uid) > 3 ){
-        $result = ldap_search($con[0],LDAP_SEARCH_DN,"(uid=*$uid*)",array('givenname','sn','uid',LDAP_USER_EMAIL_ATTR));
+        $result = ldap_search($con[0],LDAP_SEARCH_DN,"(uid=*$uid*)",array('sn','uid',LDAP_USER_EMAIL_ATTR));
         $entries = ldap_get_entries($con[0],$result);  
         echo json_encode($entries);
         
