@@ -36,23 +36,20 @@ if ($_POST) {
       $udn=getUserDN($username);
       $bind = @ldap_bind($con,$udn,$pass);
       if ($bind) {
-        $result = ldap_read($con,LDAP_AUTH_GROUP,"(".LDAP_GROUP_ATTR."=*)",array(LDAP_GROUP_ATTR)); //equivalent to ldap_search()
-        $entries = ldap_get_entries($con,$result);
-        ldap_close($con);
-        $success = false;
-        for ($i = 0; $i < $entries[0][LDAP_GROUP_ATTR]['count']; $i++) {
-          if ($entries[0][LDAP_GROUP_ATTR][$i] == $udn) {
+        # Get the groups the user is a member of
+        # and allow access if member of LDAP_GROUP_ATTR
+        $groups = getUserMembership($username);     
+        $ldap_auth_group_cn = explode('=', explode(',', LDAP_AUTH_GROUP)[0])[1];
+        if (in_array($ldap_auth_group_cn, $groups)) {
             $_SESSION['id'] = $username;
-            $success = true;
             writeLog('login-access.log',$udn.' '.logged_in);
             $domain = explode('/', URL)[2];
             $path = explode('/', URL)[3];
             setcookie("sessionPersists", $username, time()+3600*24*30, $path, $domain, 1);
             ob_end_clean(); //cleans the output buffer and stops buffering
             header("Location: index.php");
-          }
         }
-        if (!$success) {
+        else {
           $err[] = unauthorized;
           writeLog('login-error.log',$udn.' '.unauthorized_log);
         }
