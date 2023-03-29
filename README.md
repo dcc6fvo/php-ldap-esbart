@@ -25,6 +25,14 @@ A fork from esbart project which is an LDAP web frontend written in PHP. The goa
 * Added Organizational Unit for crease user page;
 * Added synchronization database;
 
+## For who:
+
+This software is intended for those who need to synchronize data from a local LDAP base with a remote LDAP base accessible through a read-only user. Consequently, some attributes will always be read-only in the local base (synchronization data) while others are read-write and may not exist in the remote base. The picture below exemplifies two bases with different structure and access and fit the context of this software.
+
+<p align="center">
+  <img src="img/two-ldap.png" alt="Different LDAP approaches">
+</p>
+
 ## Running:
 
 git clone https://github.com/dcc6fvo/php-ldap-esbart.git
