@@ -6,20 +6,6 @@ function updateLogin() {
     document.getElementById("login").value = x1+'.'+x2;
 }
 
-function isNumber(evt) {
-    evt = (evt) ? evt : window.event;
-    var mensagem = document.getElementById("mensagem"+evt.target.name);
-    console.log("mensagem"+evt.name);
-    var charCode = (evt.which) ? evt.which : evt.keyCode;
-    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-        mensagem.innerText = "Digite apenas números.";
-		mensagem.style.display = "inline-block";
-        return false;
-    }
-    mensagem.style.display = "none";
-    return true;
-}
-
 function cnpj(v){
     v=v.replace(/\D/g,"")                           //Remove tudo o que não é dígito
     v=v.replace(/^(\d{2})(\d)/,"$1.$2")             //Coloca ponto entre o segundo e o terceiro dígitos

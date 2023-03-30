@@ -121,9 +121,9 @@ else {
         $err[] = user_add_welcome_email_not_sent;
       }
       else {
-        writeLog('login-error.log',ldap_error($con));
+        writeLog('error.log',ldap_error($con));
         ldap_get_option($con, LDAP_OPT_DIAGNOSTIC_MESSAGE, $err);
-        writeLog('login-error.log',$err);
+        writeLog('error.log',$err);
         $err[] = a_problem_occurred;
       }
     }

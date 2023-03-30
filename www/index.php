@@ -40,7 +40,7 @@ if (!isset($_GET['module'])) {
 }
 
 if ($_GET['module'] == 'home') {
-  echo ' <h2>'.home."</h2>";
+  echo ' <h2>'.hometext."</h2>\n";
   echo " <div id='sec-menu'></div>";
 }
 else if ($_GET['module'] == 'users') {

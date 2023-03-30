@@ -5,9 +5,9 @@ if (strlen($_POST['name']) == 0) {
 }
 else {
   //prepare entry
-  $entry['objectclass'][0] = 'top';
-  $entry['objectclass'][1] = 'posixGroup';
-  $entry['gidnumber'] = getNextId($con,'group');
+  $entry['objectclass'] = 'groupOfNames';
+  $entry['cn'] = $_POST['name'];
+  $entry['member'] = '';
       
   //add entry
   $res_entry = @ldap_add($con,'cn='.trim($_POST['name']).",".LDAP_GROUPS_DN,$entry);
@@ -21,6 +21,8 @@ else {
     }
     else {
       $err[] = a_problem_occurred;
+      writeLog('error.log',ldap_error($con));
+      writeLog('error.log',$err);
     }
   }
 }

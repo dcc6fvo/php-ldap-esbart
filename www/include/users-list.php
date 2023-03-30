@@ -14,7 +14,7 @@ echo "          <th>".email."</th>\n";
 echo "          <th>".member_of."</th>\n";
 echo "          <th align=\"right\">".actions."</th>\n";
 echo "        </tr>\n";
-for ($i = 1; $i < count($entries); $i++) {
+for ($i = 0; $i < count($entries); $i++) {
   
   $uid=$entries[$i]['uid'][0];
   $cn=$entries[$i]['cn'][0];

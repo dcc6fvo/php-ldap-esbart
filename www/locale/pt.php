@@ -125,11 +125,16 @@ define("devices","dispositivos");
 define("macaddress","MAC Address");
 
 define("home","Inicio");
+define("hometext","Inicio - busca de usuários");
 
 define("search","Buscar...");
 define("surname","sobrename");
 
 define("device_add_name_login_required","nome e login são obrigatórios");
 
+define("last_ip","último IP");
+define("last_auth","última autenticação");
+define("last_mac","último mac");
+define("info","info");
 
 ?>

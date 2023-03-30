@@ -37,6 +37,21 @@ function handleSearchInput() {
                     else
                         html += `<td></td>`;
                     
+                    if ( isset(() => data[i].radiuscallingstationid[0] ) )
+                        html += `<td>${data[i].radiuscallingstationid[0]}</td>`;
+                    else
+                        html += `<td>N/A</td>`;
+                    
+                    if ( isset(() => data[i].radiusclientipaddress[0] ) )
+                        html += `<td>${data[i].radiusclientipaddress[0]}</td>`;
+                    else
+                        html += `<td>N/A</td>`;
+
+                    if ( isset(() => data[i].description[0] ) )
+                        html += `<td>${data[i].description[0]}</td>`;
+                    else
+                        html += `<td>N/A</td>`;
+                    
                     html += `<td>
                     <a href="?module=users&action=edit&object=${data[i].uid[0]}">edit</a> - 
                     <a href="?module=users&action=sync&object=${data[i].uid[0]}">sync</a>

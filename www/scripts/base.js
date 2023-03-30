@@ -15,3 +15,16 @@ function isset (accessor) {
       return false
     }
 }
+
+function isNumber(evt) {
+  evt = (evt) ? evt : window.event;
+  var mensagem = document.getElementById("mensagem"+evt.target.name);
+  var charCode = (evt.which) ? evt.which : evt.keyCode;
+  if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      mensagem.innerText = "Digite apenas números.";
+  mensagem.style.display = "inline-block";
+      return false;
+  }
+  mensagem.style.display = "none";
+  return true;
+}
