@@ -2,7 +2,6 @@
       <h3><?=user_add_how_to_use?></h3>
       <ul>
         <li><?=user_add_assisted_advice_1?></li>
-        <li><?=user_add_assisted_advice_2?></li>
         <li><?=user_add_assisted_advice_3?></li>
       </ul>
       <form name="user" id="user" enctype="application/x-www-form-urlencoded" method="post" action="index.php?module=users&action=add&mode=manual">
